@@ -52,6 +52,9 @@ class Lexer:
             elif self.peek() == '/' and self.pos + 1 < self.length and self.source[self.pos + 1] == '/':
                 while self.peek() is not None and self.peek() != '\n':
                     self.advance()
+            elif self.peek() == '#':
+                while self.peek() is not None and self.peek() != '\n':
+                    self.advance()
             else:
                 break
 

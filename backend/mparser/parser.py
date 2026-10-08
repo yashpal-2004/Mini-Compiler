@@ -49,6 +49,16 @@ class Parser:
     def parse(self):
         declarations = []
         while self.peek():
+            token = self.peek()
+            if token and token.type == TokenType.IDENTIFIER and token.value == "using":
+                self.advance()
+                if self.peek() and self.peek().value == "namespace":
+                    self.advance()
+                if self.peek() and self.peek().value == "std":
+                    self.advance()
+                if self.peek() and self.peek().type == TokenType.SEMICOLON:
+                    self.advance()
+                continue
             declarations.append(self.parse_function_declaration())
         return Program(declarations)
 

@@ -12,32 +12,24 @@ import AssemblyViewer from './components/AssemblyViewer';
 
 const EXAMPLES: { label: string; code: string }[] = [
   {
-    label: "Basic Arithmetic",
-    code: `int main() {\n    int a = 10;\n    int b = 20;\n    int c = a + b;\n    return c;\n}`
+    label: "Massive: Prime Number Checker",
+    code: `#include <iostream>\nusing namespace std;\n\nint main() {\n    int target = 29;\n    int divisor = 2;\n    bool is_prime = true;\n    \n    // MiniLang lacks the modulo (%) operator, \n    // so we emulate it using division and multiplication.\n    while (divisor < target) {\n        int quotient = target / divisor;\n        int remainder = target - (quotient * divisor);\n        \n        if (remainder == 0) {\n            is_prime = false;\n        }\n        divisor = divisor + 1;\n    }\n    \n    return is_prime;\n}`
   },
   {
-    label: "Constant Folding",
-    code: `int main() {\n    int a = 2 * 3 + 4;\n    return a;\n}`
+    label: "Massive: 5-Variable Bubble Sort",
+    code: `#include <iostream>\nusing namespace std;\n\nint main() {\n    // No arrays in MiniLang! Simulating an array of size 5.\n    int v1 = 45;\n    int v2 = 12;\n    int v3 = 89;\n    int v4 = 2;\n    int v5 = 34;\n    \n    bool swapped = true;\n    int temp = 0;\n    \n    while (swapped) {\n        swapped = false;\n        \n        if (v1 > v2) {\n            temp = v1;\n            v1 = v2;\n            v2 = temp;\n            swapped = true;\n        }\n        \n        if (v2 > v3) {\n            temp = v2;\n            v2 = v3;\n            v3 = temp;\n            swapped = true;\n        }\n        \n        if (v3 > v4) {\n            temp = v3;\n            v3 = v4;\n            v4 = temp;\n            swapped = true;\n        }\n        \n        if (v4 > v5) {\n            temp = v4;\n            v4 = v5;\n            v5 = temp;\n            swapped = true;\n        }\n    }\n    \n    // Returns the largest value which bubbles up to v5\n    return v5;\n}`
   },
   {
-    label: "If Statement",
-    code: `int main() {\n    int x = 10;\n\n    if (x > 5) {\n        x = x + 1;\n    }\n\n    return x;\n}`
+    label: "Massive: GCD and LCM Calculator",
+    code: `#include <iostream>\nusing namespace std;\n\nint main() {\n    int num1 = 252;\n    int num2 = 105;\n    int orig_n1 = num1;\n    int orig_n2 = num2;\n    \n    // Find GCD using repeated subtraction\n    while (num1 != num2) {\n        if (num1 > num2) {\n            num1 = num1 - num2;\n        } else {\n            num2 = num2 - num1;\n        }\n    }\n    \n    int gcd = num1;\n    \n    // Compute Least Common Multiple (LCM)\n    int lcm = (orig_n1 * orig_n2) / gcd;\n    \n    // Check if GCD is a prime number (emulating modulo)\n    int div = 2;\n    bool is_gcd_prime = true;\n    \n    while (div < gcd) {\n        int q = gcd / div;\n        int rem = gcd - (q * div);\n        if (rem == 0) {\n            is_gcd_prime = false;\n        }\n        div = div + 1;\n    }\n    \n    if (is_gcd_prime) {\n        return lcm;\n    } else {\n        return gcd;\n    }\n}`
   },
   {
-    label: "While Loop",
-    code: `int main() {\n    int x = 0;\n\n    while (x < 5) {\n        x = x + 1;\n    }\n\n    return x;\n}`
+    label: "Massive: Integer Square Root",
+    code: `#include <iostream>\nusing namespace std;\n\nint main() {\n    int target = 10000;\n    int low = 0;\n    int high = target;\n    int ans = 0;\n    \n    // Binary search for integer square root\n    while (low <= high) {\n        int mid = low + (high - low) / 2;\n        int square = mid * mid;\n        \n        if (square == target) {\n            return mid;\n        }\n        \n        if (square < target) {\n            low = mid + 1;\n            ans = mid;\n        } else {\n            high = mid - 1;\n        }\n    }\n    \n    return ans;\n}`
   },
   {
-    label: "Semantic Error",
-    code: `int main() {\n    int x;\n    y = 10;\n    return x;\n}`
-  },
-  {
-    label: "Type Error",
-    code: `int main() {\n    int x;\n    x = true;\n    return x;\n}`
-  },
-  {
-    label: "Infinite Loop Warning",
-    code: `int main() {\n    int x = 10;\n\n    while (x > 0) {\n        x = x + 1;\n    }\n\n    return x;\n}`
+    label: "Massive: Collatz Max Sequence",
+    code: `#include <iostream>\nusing namespace std;\n\nint main() {\n    // Find max Collatz sequence length for numbers 1 to 20\n    int max_len = 0;\n    int max_num = 0;\n    int current = 1;\n    \n    while (current <= 20) {\n        int n = current;\n        int length = 1;\n        \n        while (n > 1) {\n            int q = n / 2;\n            int rem = n - (q * 2);\n            \n            if (rem == 0) {\n                n = n / 2;\n            } else {\n                n = (3 * n) + 1;\n            }\n            length = length + 1;\n        }\n        \n        if (length > max_len) {\n            max_len = length;\n            max_num = current;\n        }\n        \n        current = current + 1;\n    }\n    \n    return max_num;\n}`
   }
 ];
 
